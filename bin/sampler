@@ -1,0 +1,35 @@
+#!/usr/bin/env php
+<?php
+set_time_limit(0);
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Console\Input\ArgvInput;
+use StreamSampler\StreamIterator;
+use StreamSampler\ReservoirSampler;
+use Utilities\RandomString;
+
+
+$input  	  = new ArgvInput();
+$isRandom     = $input->hasParameterOption(['--random','-r']);
+$length 	  = $input->getParameterOption(['--length', '-k'], 5);
+$list 	  	  = $input->getParameterOption(['--list', '-l'], 1000);
+
+$iterator = null;
+if($isRandom){
+	$randomStr = new RandomString();
+	$randomStr = $randomStr->generate($list);
+	$iterator = new ArrayIterator(str_split($randomStr));
+}
+
+if($iterator === null){
+	$iterator = new StreamIterator('php://stdin');
+}
+
+$sample = new ReservoirSampler($iterator);
+echo implode('',$sample->getSample($length));
+
+echo  "\n";
+
+
+?>

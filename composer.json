@@ -1,0 +1,23 @@
+{
+    "name": "root/stream-sampler",
+    "authors": [
+        {
+            "name": "mohamednagy",
+            "email": "mohamed.haleem@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "symfony/console": "2.5.*",
+        "phpunit/phpunit": "5.*",
+        "phpunit/phpunit-skeleton-generator": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
